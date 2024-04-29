@@ -22,19 +22,23 @@ def player_details(player):
     fifty_hundred = f'{half_centuries}/{centuries}'
 
     as_bowler = data[data['bowler'] == player]
+    bowls = as_bowler.groupby('ID', as_index=False)['ballnumber'].max()
+    overs_bowled = int(round((bowls['ballnumber'].sum()/6*10).astype(int)/10, 0))
     total_wickets = as_bowler['isWicketDelivery'].sum()
     max_wickets = as_bowler.groupby('ID')['isWicketDelivery'].sum().sort_values(ascending=False).iloc[0]
 
+
     with cl1:
         st.metric('Matches Played',str(total))
-        st.metric('Total wickets as a bowler', str(total_wickets))
+        st.metric('Overs bowled', str(overs_bowled))
 
     with cl2:
         st.metric('Total runs as a batsman', str(total_runs))
-        st.metric('Max wickets in a match', str(max_wickets))
+        st.metric('Total wickets as a bowler', str(total_wickets))
 
     with cl3:
         st.metric('Highest score as a batsman', str(max_runs_as_batsman))
+        st.metric('Max wickets in a match', str(max_wickets))
 
     with cl4:
         st.metric('50s/100s', fifty_hundred)
