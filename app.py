@@ -4,7 +4,7 @@ import pandas as pd
 
 st.set_page_config(layout='wide', page_title='Players Analysis')
 
-data = pd.read_csv('/Users/ankitkhatkar/PycharmProjects/StreamLit/Resources/ipl_deliveries.csv')
+data = pd.read_csv('ipl_deliveries.csv')
 
 def player_details(player):
 
